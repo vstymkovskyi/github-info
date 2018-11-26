@@ -26,7 +26,7 @@ const routes = [
     component: SearchPage
   },
   {
-    path: "/user/:id",
+    path: "/user/:userName",
     component: UserPage
   }
 ];

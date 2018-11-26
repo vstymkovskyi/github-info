@@ -5,7 +5,6 @@
  */
 
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 
 import SearchForm from './searchForm';
 import SearchList from './searchList';
@@ -24,4 +23,4 @@ class SearchPage extends Component {
   }
 }
 
-export default connect()(SearchPage);
+export default SearchPage;

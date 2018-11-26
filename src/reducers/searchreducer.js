@@ -17,11 +17,10 @@ export default function (state = initialState, action) {
         ...state,
         users: action.payload
       };
-    case 'FIND_USER_BY_NAME':
-      console.log('**** REDUCER FIND_USER_BY_NAME ****');
+    case 'GET_USER_INFO':
       return {
         ...state,
-        users: action.payload
+        userData: action.payload
       };
     default:
       return state;

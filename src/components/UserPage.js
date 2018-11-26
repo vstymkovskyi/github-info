@@ -5,9 +5,17 @@
  */
 
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import { getUserInfo } from '../actions/postactions';
 
 class UserPage extends Component {
+
+  componentWillMount() {
+    this.props.getUserInfo(this.props.match.params.userName);
+  }
+
   render() {
+    console.log(this.props.userData);
     return (
         <div>
           User Page
@@ -16,4 +24,12 @@ class UserPage extends Component {
   }
 }
 
-export default UserPage;
+const mapStateToProps = state => ({
+  userData: state.searchResults.userData
+});
+
+const mapDispatchToProps = dispatch => ({
+  getUserInfo: (userName) => dispatch(getUserInfo(userName))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

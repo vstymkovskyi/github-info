@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomePge from './components/HomePage'
 import SearchPage from './components/Search/SearchPage'
 import PostsPage from './components/Posts';
-import UserPage from './components/UserPage';
+import UserPage from './components/User/UserPage';
 
 const routes = [
   {

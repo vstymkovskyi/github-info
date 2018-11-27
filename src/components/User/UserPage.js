@@ -6,7 +6,12 @@
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { getUserInfo } from '../actions/postactions';
+import { Container, Row, Col } from 'reactstrap';
+import { getUserInfo } from '../../actions/postactions';
+
+import Header from './userHeader'
+import Content from './userContent'
+import './userpage.css';
 
 class UserPage extends Component {
 
@@ -15,11 +20,19 @@ class UserPage extends Component {
   }
 
   render() {
-    console.log(this.props.userData);
     return (
-        <div>
-          User Page
-        </div>
+      <Container>
+        <Row>
+          {this.props.userData ? (
+              <Col sm={12} lg={12}>
+                <Header />
+                <Content />
+              </Col>
+          ) : (
+            <Col sm={12} className={"text-center"}> Loading ... </Col>
+          )}
+        </Row>
+      </Container>
     );
   }
 }

@@ -80,3 +80,44 @@
 .btn-pref .btn {
     -webkit-border-radius:0 !important;
 }
+
+.nav-tabs {
+    margin: 20px 0;
+}
+.UnderlineNav-item {
+    border-bottom: 2px solid transparent;
+    color: #586069;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-right: 16px;
+    padding: 16px 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.UnderlineNav-item:focus, .UnderlineNav-item:hover {
+    border-bottom-color: #d1d5da;
+    color: #24292e;
+    text-decoration: none;
+    transition: .2s ease;
+}
+.UnderlineNav-item.selected {
+    border-bottom-color: #e36209;
+    color: #24292e;
+    font-weight: 600;
+}
+
+.UnderlineNav-item .nav-link {
+    border: none;
+}
+
+.UnderlineNav-item .counter {
+    background-color: rgba(27,31,35,.08);
+    border-radius: 20px;
+    color: #586069;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    padding: 2px 5px;
+}

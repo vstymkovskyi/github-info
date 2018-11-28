@@ -19,7 +19,7 @@ class SearchListItem extends Component {
     return (
        <Col xs={12} sm={6} md={4} xl={3} className={'m-3'}>
          <div className="media">
-           <Link to={'/user/'+this.userObj.id} className="align-self-start mr-3">
+           <Link to={'/user/'+this.userObj.login} className="align-self-start mr-3">
              <img className="" src={this.userObj.avatar_url} alt="" />
            </Link>
            <div className="media-body">

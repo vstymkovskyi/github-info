@@ -26,7 +26,7 @@ class UserPage extends Component {
           {this.props.userData ? (
               <Col sm={12} lg={12}>
                 <Header />
-                <Content />
+                <Content userData={this.props.userData} />
               </Col>
           ) : (
             <Col sm={12} className={"text-center"}> Loading ... </Col>

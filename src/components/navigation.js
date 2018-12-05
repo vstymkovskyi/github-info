@@ -8,47 +8,71 @@ import React, {Component} from 'react';
 import {Navbar, Nav, NavItem, NavLink} from 'reactstrap';
 import { connect } from 'react-redux';
 
-function UserLinks(props) {
-  if(props.loggedIn) {
-    return (
+const navigationLinks = (userID = null) => {
+  return [
+    {
+      link: '/',
+      name: 'Home'
+    },
+    {
+      link: '/posts',
+      name: 'Posts'
+    },
+    {
+      link: '/search',
+      name: 'Search',
+      userLoggedIn: true
+    },
+    {
+      link: '/user/'+userID,
+      name: 'My profile',
+      userLoggedIn: true
+    },
+    {
+      link: '/login',
+      name: 'Sign in',
+      userLoggedIn: false
+    },
+    {
+      link: '/logout',
+      name: 'Logout',
+      userLoggedIn: true
+    }
+  ]
+};
+
+function RenderLink(props) {
+  const {item} = props;
+  return (
       <NavItem>
-        <NavLink href="/logout">Logout</NavLink>
+        <NavLink href={item.link}>{item.name}</NavLink>
       </NavItem>
-    )
-  } else {
-    return (
-      <NavItem>
-        <NavLink href="/login">Sign in</NavLink>
-      </NavItem>
-    )
-  }
+  )
 }
 
 class Navigation extends Component {
   render() {
     const { loggedIn, currentUser } = this.props;
+    const navItemsArray = navigationLinks(currentUser.id);
+
+    const navItems = navItemsArray.map((item, index) => {
+      if (item.userLoggedIn !== undefined) {
+        if(item.userLoggedIn && loggedIn) {
+          return <RenderLink key={index} item={item} />
+        } else if(!item.userLoggedIn && !loggedIn) {
+          return <RenderLink key={index} item={item} />
+        }
+        return false;
+      } else {
+        return <RenderLink key={index} item={item} />
+      }
+    });
 
     return (
         <div>
           <Navbar color={"light"} light expand="md">
             <Nav navbar>
-              <NavItem>
-                <NavLink href="/">Home</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/posts">Posts</NavLink>
-              </NavItem>
-              {loggedIn &&
-                <NavItem>
-                  <NavLink href="/search">Search</NavLink>
-                </NavItem>
-              }
-              {loggedIn &&
-                <NavItem>
-                  <NavLink href={"/user/"+currentUser.id}>My profile</NavLink>
-                </NavItem>
-              }
-              <UserLinks loggedIn={loggedIn} />
+              {navItems}
             </Nav>
           </Navbar>
         </div>
@@ -58,7 +82,7 @@ class Navigation extends Component {
 
 const mapStateToProps = state => ({
   loggedIn: state.authentication.loggedIn,
-  currentUser: state.authentication.currentUser,
+  currentUser: state.authentication.currentUser || {},
 });
 
 export default connect(mapStateToProps)(Navigation);

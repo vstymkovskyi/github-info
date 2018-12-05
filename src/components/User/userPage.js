@@ -27,7 +27,7 @@ class UserPage extends Component {
   }
 
   render() {
-    const { currentUser, users, alert } = this.props;
+    const { currentUser, users } = this.props;
 
     return (
         <div className="jumbotron">

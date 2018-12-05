@@ -11,15 +11,9 @@ import {Redirect} from "react-router-dom";
 import {userActions} from "../../actions/user.actions";
 
 class Logout extends Component {
-  componentWillUpdate() {
-    // this.props.dispatch(userActions.logout());
-    // return <Redirect to={{ pathname: '/' }} />;
-  }
-
   render() {
     this.props.dispatch(userActions.logout());
-    //
-     return <Redirect to={{ pathname: '/' }} />;
+    return <Redirect to={{ pathname: '/' }} />;
   }
 }
 

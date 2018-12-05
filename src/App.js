@@ -21,8 +21,7 @@ class App extends Component {
     const { dispatch } = this.props;
     history.listen((location, action) => {
       // clear alert on location change
-      setTimeout(() => dispatch(alertActions.clear()), 1500);
-      // dispatch(alertActions.clear());
+      dispatch(alertActions.clear());
     });
   }
 

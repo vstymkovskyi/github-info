@@ -16,11 +16,6 @@ import { connect } from 'react-redux';
 
 import { userActions } from '../../actions/user.actions';
 
-export function logout() {
-  userActions.logout();
-  return <Redirect to={{ pathname: '/login' }} />
-}
-
 class LoginPage extends Component {
   constructor(props) {
     super(props);
@@ -54,11 +49,9 @@ class LoginPage extends Component {
   render() {
     const { loggingIn, loggedIn, currentUser } = this.props;
     const { username, password, submitted } = this.state;
-    console.log('loggedIn', loggedIn);
+
     if(loggedIn) {
-      return (
-          <Redirect to={{ pathname: '/user'+currentUser.id }} />
-      )
+      return <Redirect to={{ pathname: '/user/'+currentUser.id }} />
     }
 
     return (

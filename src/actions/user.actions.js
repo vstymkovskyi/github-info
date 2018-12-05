@@ -45,7 +45,7 @@ function login(username, password) {
         .then(
             user => {
               dispatch(success(user));
-              history.push('/user/'+user.id);
+              // history.push('/user/'+user.id);
               // TODO: without reloading page
               // window.location.reload(true);
             },
@@ -63,7 +63,11 @@ function login(username, password) {
 
 function logout() {
   userService.logout();
-  return { type: userActionTypes.LOGOUT };
+  return dispatch => {
+    dispatch( () => {
+      return {type: userActionTypes.LOGOUT}
+    });
+  }
 }
 
 function register(user) {

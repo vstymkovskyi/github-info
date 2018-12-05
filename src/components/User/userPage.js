@@ -19,8 +19,6 @@ class UserPage extends Component {
 
   handleDeleteUser(id) {
     return () => {
-      console.log(id);
-      console.log(this.props.currentUser.id);
       if(id === this.props.currentUser.id) {
         this.props.dispatch(alertActions.error('You can not delete your self :-)'));
         return false;

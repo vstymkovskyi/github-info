@@ -12,7 +12,7 @@ import PostsPage from '../components/Posts';
 import SearchUserPage from '../components/SearchUser/searchUserPage';
 import UserPage from '../components/User/userPage';
 import LoginPage from '../components/Authentication/loginPage';
-import {logout} from '../components/Authentication/loginPage';
+import Logout from '../components/Authentication/logout';
 import RegistrationPage from '../components/Authentication/registrationPage';
 
 const routes = [
@@ -35,7 +35,6 @@ const routes = [
   },
   {
     path: "/user/:id",
-    exact: true,
     private: true,
     redirect: '/login',
     component: UserPage
@@ -46,7 +45,7 @@ const routes = [
   },
   {
     path: "/logout",
-    render: logout
+    component: Logout
   },
   {
     path: "/register",

@@ -1,11 +1,5 @@
 /*
  * *
- *  * Created by vstymkovskyi on 12/5/18 2:11 PM.
- *
- */
-
-/*
- * *
  *  * Created by vstymkovskyi on 12/4/18 4:33 PM.
  *
  */

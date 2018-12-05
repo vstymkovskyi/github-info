@@ -37,7 +37,6 @@ export const userActions = {
 };
 
 function login(username, password) {
-  console.log('login ->', username, password);
   return dispatch => {
     dispatch(request({ username }));
 
@@ -45,9 +44,6 @@ function login(username, password) {
         .then(
             user => {
               dispatch(success(user));
-              // history.push('/user/'+user.id);
-              // TODO: without reloading page
-              // window.location.reload(true);
             },
             error => {
               dispatch(failure(error.toString()));
@@ -63,11 +59,13 @@ function login(username, password) {
 
 function logout() {
   userService.logout();
-  return dispatch => {
-    dispatch( () => {
-      return {type: userActionTypes.LOGOUT}
-    });
-  }
+
+  return { type: userActionTypes.LOGOUT };
+  // return dispatch => {
+  //   dispatch( () => {
+  //     return {type: userActionTypes.LOGOUT}
+  //   });
+  // }
 }
 
 function register(user) {

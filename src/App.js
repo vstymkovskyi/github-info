@@ -1,29 +1,52 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
 
 import logo from './logo.svg';
 import './App.css';
 
 import Navigation from './components/navigation'
 
-import Routes from './routes'
-import store from './store'
+import Routes from './services/routes'
+// import store from './store'
+import {connect} from 'react-redux'
+
+import { history } from './helpers/history';
+import { alertActions } from './actions/alert.actions';
+
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    const { dispatch } = this.props;
+    history.listen((location, action) => {
+      // clear alert on location change
+      dispatch(alertActions.clear());
+    });
+  }
+
   render() {
+    const { alert } = this.props;
     return (
-        <Provider store={store}>
-          <div className="App">
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-            </header>
-            <Navigation/>
-            <Routes/>
-          </div>
-        </Provider>
+      <div className="App">
+        {alert.message &&
+        <div className={`alert ${alert.type}`}>{alert.message}</div>
+        }
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
+        <Navigation/>
+        <Routes/>
+      </div>
     );
   }
 }
 
+function mapStateToProps(state) {
+  const { alert } = state;
+  return {
+    alert
+  };
+}
 
-export default App;
+export default connect(mapStateToProps)(App);

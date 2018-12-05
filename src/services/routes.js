@@ -6,10 +6,14 @@
 
 import React  from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import HomePge from './components/HomePage'
-import SearchPage from './components/Search/SearchPage'
-import PostsPage from './components/Posts';
-import UserPage from './components/User/UserPage';
+import HomePge from '../components/HomePage'
+import SearchPage from '../components/Search/SearchPage'
+import PostsPage from '../components/Posts';
+import SearchUserPage from '../components/SearchUser/searchUserPage';
+import UserPage from '../components/User/userPage';
+import LoginPage from '../components/Authentication/loginPage';
+import {logout} from '../components/Authentication/loginPage';
+import RegistrationPage from '../components/Authentication/registrationPage';
 
 const routes = [
   {
@@ -26,8 +30,25 @@ const routes = [
     component: SearchPage
   },
   {
-    path: "/user/:userName",
+    path: "/search-user/:userName",
+    component: SearchUserPage
+  },
+  {
+    path: "/user/:id",
     component: UserPage
+  },
+  {
+    path: "/login",
+    component: LoginPage
+  },
+  {
+    path: "/logout",
+    // component: LoginPage,
+    render: logout
+  },
+  {
+    path: "/register",
+    component: RegistrationPage
   }
 ];
 

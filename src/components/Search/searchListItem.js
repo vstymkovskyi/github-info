@@ -19,14 +19,14 @@ class SearchListItem extends Component {
     return (
        <Col xs={12} sm={6} md={4} xl={3} className={'m-3'}>
          <div className="media">
-           <Link to={'/user/'+this.userObj.login} className="align-self-start mr-3">
+           <Link to={'/search-user/'+this.userObj.login} className="align-self-start mr-3">
              <img className="" src={this.userObj.avatar_url} alt="" />
            </Link>
            <div className="media-body">
              <h5 className="media-heading">Name: {this.userObj.login}</h5>
              <h6>Id: {this.userObj.id}</h6>
              <div>
-               <Link to={'/user/'+this.userObj.login} className={"btn btn-secondary btn-sm m-1"}>view info</Link>
+               <Link to={'/search-user/'+this.userObj.login} className={"btn btn-secondary btn-sm m-1"}>view info</Link>
                <a href={this.userObj.html_url} target={"blank"} className={"btn btn-secondary btn-sm m-1"}>view git profile</a>
              </div>
            </div>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-class UserHeader extends Component {
+class SearchUserHeader extends Component {
   render() {
     return (
       <div className="card hovercard">
@@ -23,4 +23,4 @@ const mapStateToProps = state => ({
   userData: state.searchResults.userData
 });
 
-export default connect(mapStateToProps)(UserHeader);
+export default connect(mapStateToProps)(SearchUserHeader);

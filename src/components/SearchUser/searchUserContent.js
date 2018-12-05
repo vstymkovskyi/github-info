@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { TabContent, TabPane, Row, Col, Nav, NavItem, NavLink } from 'reactstrap';
 import classnames from 'classnames';
 
-class UserContent extends Component {
+class SearchUserContent extends Component {
   static propTypes = {
     userData: PropTypes.instanceOf(Object).isRequired,
   };
@@ -175,4 +175,4 @@ const mapStateToProps = state => ({
   userData: state.searchResults.userData
 });
 
-export default connect(mapStateToProps)(UserContent);
+export default connect(mapStateToProps)(SearchUserContent);

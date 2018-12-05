@@ -9,11 +9,11 @@ import {connect} from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 import { getUserInfo } from '../../actions/postactions';
 
-import Header from './userHeader'
-import Content from './userContent'
+import Header from './searchUserHeader'
+import Content from './searchUserContent'
 import './userpage.css';
 
-class UserPage extends Component {
+class SearchUserPage extends Component {
 
   componentWillMount() {
     this.props.getUserInfo(this.props.match.params.userName);
@@ -45,4 +45,4 @@ const mapDispatchToProps = dispatch => ({
   getUserInfo: (userName) => dispatch(getUserInfo(userName))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchUserPage);

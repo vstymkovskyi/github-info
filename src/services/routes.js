@@ -5,7 +5,7 @@
  */
 
 import React  from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import HomePge from '../components/HomePage'
 import SearchPage from '../components/Search/SearchPage'
 import PostsPage from '../components/Posts';
@@ -35,6 +35,9 @@ const routes = [
   },
   {
     path: "/user/:id",
+    exact: true,
+    private: true,
+    redirect: '/login',
     component: UserPage
   },
   {
@@ -43,7 +46,6 @@ const routes = [
   },
   {
     path: "/logout",
-    // component: LoginPage,
     render: logout
   },
   {
@@ -52,16 +54,30 @@ const routes = [
   }
 ];
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={props => (
+        localStorage.getItem('currentUser')
+            ? <Component {...props} />
+            : <Redirect to={{ pathname: rest.redirect, state: { from: props.location } }} />
+    )} />
+);
 
 // wrap <Route> and use this everywhere instead, then when
 // sub routes are added to any route it'll work
 function RouteWithSubRoutes(route) {
-
-  return (
-      <Route
-          {...route}
-      />
-  );
+  if(route.private) {
+    return (
+        <PrivateRoute
+            {...route}
+        />
+    )
+  } else {
+    return (
+        <Route
+            {...route}
+        />
+    );
+  }
 }
 
 function RouteConfig() {

@@ -20,8 +20,10 @@ class App extends Component {
 
     const { dispatch } = this.props;
     history.listen((location, action) => {
+      console.log('history changed');
       // clear alert on location change
-      dispatch(alertActions.clear());
+      setTimeout(() => dispatch(alertActions.clear()), 1500);
+      // dispatch(alertActions.clear());
     });
   }
 
@@ -30,7 +32,7 @@ class App extends Component {
     return (
       <div className="App">
         {alert.message &&
-        <div className={`alert ${alert.type}`}>{alert.message}</div>
+          <div className={`alert ${alert.type}`}>{alert.message}</div>
         }
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />

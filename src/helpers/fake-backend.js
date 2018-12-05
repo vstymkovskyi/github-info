@@ -34,9 +34,9 @@ export function configureFakeBackend() {
               username: user.username,
               firstName: user.firstName,
               lastName: user.lastName,
-              token: 'fake-jwt-token'
+              accessToken: 'fake-access-token'
             };
-            console.log(responseJson);
+
             resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(responseJson)) });
           } else {
             // else return error
@@ -49,7 +49,7 @@ export function configureFakeBackend() {
         // get users
         if (url.endsWith('/users') && opts.method === 'GET') {
           // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-          if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
+          if (opts.headers && opts.headers.Authorization === 'Bearer fake-access-token') {
             resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(users))});
           } else {
             // return 401 not authorised if token is null or invalid
@@ -62,7 +62,7 @@ export function configureFakeBackend() {
         // get user by id
         if (url.match(/\/users\/\d+$/) && opts.method === 'GET') {
           // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
-          if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
+          if (opts.headers && opts.headers.Authorization === 'Bearer fake-access-token') {
             // find user by id in users array
             let urlParts = url.split('/');
             let id = parseInt(urlParts[urlParts.length - 1]);
@@ -105,7 +105,7 @@ export function configureFakeBackend() {
         // delete user
         if (url.match(/\/users\/\d+$/) && opts.method === 'DELETE') {
           // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
-          if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
+          if (opts.headers && opts.headers.Authorization === 'Bearer fake-access-token') {
             // find user by id in users array
             let urlParts = url.split('/');
             let id = parseInt(urlParts[urlParts.length - 1]);

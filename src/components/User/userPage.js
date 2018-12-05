@@ -6,39 +6,35 @@
 
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 import { userActions } from '../../actions/user.actions';
+import { alertActions } from '../../actions/alert.actions';
 
 class UserPage extends Component {
-  componentWillMount() {
-    //TODO: redirect before render
-
-    // let user = localStorage.getItem('user');
-    // if(user === null) {
-    //   return <Redirect to={{ pathname: '/login' }} />
-    // }
-  }
 
   componentDidMount() {
     this.props.dispatch(userActions.getAllUsers());
   }
 
   handleDeleteUser(id) {
-    return () => this.props.dispatch(userActions.deleteUser(id));
+    return () => {
+      console.log(id);
+      console.log(this.props.currentUser.id);
+      if(id === this.props.currentUser.id) {
+        this.props.dispatch(alertActions.error('You can not delete your self :-)'));
+        return false;
+      }
+      return this.props.dispatch(userActions.deleteUser(id));
+    }
   }
 
   render() {
-    const { user, users } = this.props;
-
-    if(!user) {
-      return <Redirect to={{ pathname: '/login' }} />
-    }
+    const { currentUser, users, alert } = this.props;
 
     return (
         <div className="col-md-6 col-md-offset-3">
-          <h1>Hi {user.firstName}!</h1>
+          <h1>Hi {currentUser.firstName}!</h1>
           <p>You're logged in with React!!</p>
           <h3>All registered users:</h3>
           {users.loading && <em>Loading users...</em>}
@@ -50,7 +46,7 @@ class UserPage extends Component {
                   {
                     user.deleting ? <em> - Deleting...</em>
                         : user.deleteError ? <span className="error"> - ERROR: {user.deleteError}</span>
-                        : <span> - <a href={'#!'} onClick={this.handleDeleteUser(user.id)}>Delete</a></span>
+                        : <span> - <button type={"button"} className={"btn btn-sm btn-danger"} onClick={this.handleDeleteUser(user.id)}>Delete</button></span>
                   }
                 </li>
             )}
@@ -65,10 +61,11 @@ class UserPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { users, authentication } = state;
-  const { user } = authentication;
+  const { users, authentication, alert } = state;
+  const { currentUser } = authentication;
   return {
-    user,
+    alert,
+    currentUser,
     users
   };
 }

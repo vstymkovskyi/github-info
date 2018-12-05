@@ -44,15 +44,12 @@ function login(username, password) {
     userService.login(username, password)
         .then(
             user => {
-              console.log('user', user);
               dispatch(success(user));
               history.push('/user/'+user.id);
               // TODO: without reloading page
-              window.location.reload(true);
+              // window.location.reload(true);
             },
             error => {
-              console.log('login error');
-              console.log(error);
               dispatch(failure(error.toString()));
               dispatch(alertActions.error(error.toString()));
             }
@@ -78,6 +75,7 @@ function register(user) {
             user => {
               dispatch(success());
               history.push('/login');
+              window.location.reload(true);
               dispatch(success(user, 'Registration successful'));
             },
             error => {

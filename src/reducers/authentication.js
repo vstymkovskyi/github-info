@@ -6,10 +6,10 @@
 
 import { userActionTypes } from '../actions/user.actions';
 
-let user = JSON.parse(localStorage.getItem('user'));
+let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 let initialState = {loggedIn: false};
-if(user) {
-  initialState = {...initialState, user}
+if(currentUser) {
+  initialState = {...initialState, currentUser}
 }
 
 export function authentication(state = initialState, action) {
@@ -17,12 +17,12 @@ export function authentication(state = initialState, action) {
     case userActionTypes.LOGIN_REQUEST:
       return {
         loggingIn: true,
-        user: action.user
+        currentUser: action.user
       };
     case userActionTypes.LOGIN_SUCCESS:
       return {
         loggedIn: true,
-        user: action.user
+        currentUser: action.user
       };
     case userActionTypes.LOGIN_FAILURE:
       return {};

@@ -20,10 +20,10 @@ export const userService = {
 
 function authHeader() {
   // return authorization header
-  let user = JSON.parse(localStorage.getItem('user'));
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-  if (user && user.token) {
-    return { 'Authorization': 'Bearer ' + user.token };
+  if (currentUser && currentUser.accessToken) {
+    return { 'Authorization': 'Bearer ' + currentUser.accessToken };
   } else {
     return {};
   }
@@ -39,11 +39,10 @@ function login(username, password) {
   return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
       .then(handleResponse)
       .then(user => {
-        console.log('user', user);
         // login successful if there's a token in the response
-        if (user.token) {
+        if (user.accessToken) {
           // store user details and token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('currentUser', JSON.stringify(user));
         }
 
         return user;
@@ -52,7 +51,7 @@ function login(username, password) {
 
 function logout() {
   // remove user from local storage to log user out
-  localStorage.removeItem('user');
+  localStorage.removeItem('currentUser');
 }
 
 function getAll() {

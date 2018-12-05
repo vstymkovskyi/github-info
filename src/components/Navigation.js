@@ -8,7 +8,7 @@ import React, {Component} from 'react';
 import {Navbar, Nav, NavItem, NavLink} from 'reactstrap';
 import { connect } from 'react-redux';
 
-const navigationLinks = (userID = null) => {
+const navigationLinks = () => {
   return [
     {
       link: '/',
@@ -24,7 +24,7 @@ const navigationLinks = (userID = null) => {
       userLoggedIn: true
     },
     {
-      link: '/user/'+userID,
+      link: '/user',
       name: 'My profile',
       userLoggedIn: true
     },
@@ -52,8 +52,8 @@ function RenderLink(props) {
 
 class Navigation extends Component {
   render() {
-    const { loggedIn, currentUser } = this.props;
-    const navItemsArray = navigationLinks(currentUser.id);
+    const { loggedIn } = this.props;
+    const navItemsArray = navigationLinks();
 
     const navItems = navItemsArray.map((item, index) => {
       if (item.userLoggedIn !== undefined) {
@@ -81,8 +81,7 @@ class Navigation extends Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.authentication.loggedIn,
-  currentUser: state.authentication.currentUser || {},
+  loggedIn: state.authentication.loggedIn
 });
 
 export default connect(mapStateToProps)(Navigation);

@@ -27,11 +27,20 @@ const routes = [
   },
   {
     path: "/search",
+    private: true,
+    redirect: '/login',
     component: SearchPage
   },
   {
     path: "/search-user/:userName",
     component: SearchUserPage
+  },
+  {
+    path: "/user",
+    exact: true,
+    private: true,
+    redirect: '/login',
+    component: UserPage
   },
   {
     path: "/user/:id",
@@ -45,6 +54,8 @@ const routes = [
   },
   {
     path: "/logout",
+    private: true,
+    redirect: '/login',
     component: Logout
   },
   {

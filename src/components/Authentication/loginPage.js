@@ -41,11 +41,11 @@ class LoginPage extends Component {
   }
 
   render() {
-    const { loggingIn, loggedIn, currentUser } = this.props;
+    const { loggingIn, loggedIn } = this.props;
     const { username, password, submitted } = this.state;
 
     if(loggedIn) {
-      return <Redirect to={{ pathname: '/user/'+currentUser.id }} />
+      return <Redirect to={{ pathname: '/user' }} />
     }
 
     return (
@@ -81,8 +81,7 @@ class LoginPage extends Component {
 
 const mapStateToProps = state => ({
   loggingIn: state.authentication.loggingIn,
-  loggedIn: state.authentication.loggedIn,
-  currentUser: state.authentication.currentUser,
+  loggedIn: state.authentication.loggedIn
 });
 
 export default connect(mapStateToProps)(LoginPage);

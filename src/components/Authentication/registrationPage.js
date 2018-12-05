@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions } from '../../actions/user.actions';
@@ -51,8 +51,17 @@ class RegistrationPage extends React.Component {
   }
 
   render() {
-    const { registering  } = this.props;
+    const { registering, registered, loggedIn } = this.props;
     const { user, submitted } = this.state;
+
+    if(registered) {
+      return <Redirect to={{ pathname: '/login' }} />
+    }
+
+    if(loggedIn) {
+      return <Redirect to={{ pathname: '/user' }} />
+    }
+
     return (
         <div className="col-md-6 col-md-offset-3">
           <h2>Register</h2>
@@ -101,6 +110,8 @@ class RegistrationPage extends React.Component {
 
 const mapStateToProps = state => ({
   registering: state.registration.registering,
+  registered: state.registration.registered,
+  loggedIn: state.authentication.loggedIn,
 });
 
 export default connect(mapStateToProps)(RegistrationPage);

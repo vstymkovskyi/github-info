@@ -6,7 +6,6 @@
 
 import { userService } from '../services/user.service';
 import { alertActions } from './alert.actions';
-import { history } from '../helpers/history';
 
 export const userActionTypes = {
   REGISTER_REQUEST: 'USERS_REGISTER_REQUEST',
@@ -61,11 +60,6 @@ function logout() {
   userService.logout();
 
   return { type: userActionTypes.LOGOUT };
-  // return dispatch => {
-  //   dispatch( () => {
-  //     return {type: userActionTypes.LOGOUT}
-  //   });
-  // }
 }
 
 function register(user) {
@@ -76,8 +70,6 @@ function register(user) {
         .then(
             user => {
               dispatch(success());
-              history.push('/login');
-              window.location.reload(true);
               dispatch(success(user, 'Registration successful'));
             },
             error => {

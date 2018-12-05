@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Navigation from './components/navigation'
+import Navigation from './components/Navigation'
 
 import Routes from './services/routes'
 // import store from './store'

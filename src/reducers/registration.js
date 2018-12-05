@@ -6,14 +6,14 @@
 
 import { userActionTypes } from '../actions/user.actions';
 
-const initialState = { registering: false };
+const initialState = { registering: false, registered: false };
 
 export function registration(state = initialState, action) {
   switch (action.type) {
     case userActionTypes.REGISTER_REQUEST:
       return { registering: true };
     case userActionTypes.REGISTER_SUCCESS:
-      return {};
+      return {registered: true};
     case userActionTypes.REGISTER_FAILURE:
       return {};
     default:

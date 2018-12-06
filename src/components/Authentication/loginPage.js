@@ -8,7 +8,9 @@ import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { firebaseAuth, googleProvider, githubProvider } from '../../components/Firebase/firebase'
 import { userActions } from '../../actions/user.actions';
+import { alertActions } from '../../actions/alert.actions';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -22,6 +24,7 @@ class LoginPage extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.firebaseLogin = this.firebaseLogin.bind(this);
   }
 
   handleChange(e) {
@@ -36,8 +39,38 @@ class LoginPage extends Component {
     const { username, password } = this.state;
     const { dispatch } = this.props;
     if (username && password) {
-      dispatch(userActions.login(username, password));
+      dispatch(userActions.login(username, password, 'site'));
     }
+  }
+
+  firebaseLogin(e) {
+    e.preventDefault();
+    const loginType = e.target.dataset.type;
+    const { dispatch } = this.props;
+    const provider = loginType === 'google' ? googleProvider : githubProvider;
+
+    firebaseAuth.signInWithPopup(provider)
+    .then((result) => {
+      let user = {
+          username: result.user.email,
+      };
+
+      if(loginType === 'google') {
+        user.id = result.additionalUserInfo.profile.id;
+        user.firstName = result.additionalUserInfo.profile.given_name;
+        user.lastName = result.additionalUserInfo.profile.family_name;
+        user.picture = result.additionalUserInfo.profile.picture;
+      } else {
+          const name = result.additionalUserInfo.profile.name.split(' ');
+          user.id = result.additionalUserInfo.profile.id;
+          user.firstName = name[0];
+          user.lastName = name[1];
+          user.picture = result.additionalUserInfo.profile.avatar_url;
+      }
+      dispatch(userActions.loginWithFirebase(user.username, user, loginType));
+    }).catch(reason => {
+      dispatch(alertActions.error(reason.message));
+    });
   }
 
   render() {
@@ -52,6 +85,10 @@ class LoginPage extends Component {
       <div className="col-md-6 col-md-offset-3">
         <h2>Login</h2>
         <form name="form" onSubmit={this.handleSubmit}>
+          <div className={'form-group'}>
+            <button onClick={this.firebaseLogin} data-type="google">Sign in using Google</button>
+            <button onClick={this.firebaseLogin} data-type="github">Sign in using GitHub</button>
+          </div>
           <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
             <label htmlFor="username">Username</label>
             <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />

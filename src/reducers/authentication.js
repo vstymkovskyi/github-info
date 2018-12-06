@@ -17,12 +17,14 @@ export function authentication(state = initialState, action) {
     case userActionTypes.LOGIN_REQUEST:
       return {
         loggingIn: true,
-        currentUser: action.user
+        currentUser: action.user,
+        loginType: action.loginType
       };
     case userActionTypes.LOGIN_SUCCESS:
       return {
         loggedIn: true,
-        currentUser: action.user
+        currentUser: action.user,
+        loginType: action.loginType
       };
     case userActionTypes.LOGIN_FAILURE:
       return {};

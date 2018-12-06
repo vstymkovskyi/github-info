@@ -29,6 +29,7 @@ export const userActionTypes = {
 
 export const userActions = {
   login,
+  loginWithFirebase,
   logout,
   register,
   getAllUsers,
@@ -53,6 +54,27 @@ function login(username, password) {
 
   function request(user) { return { type: userActionTypes.LOGIN_REQUEST, user } }
   function success(user) { return { type: userActionTypes.LOGIN_SUCCESS, user } }
+  function failure(error) { return { type: userActionTypes.LOGIN_FAILURE, error } }
+}
+
+function loginWithFirebase(username, user, type) {
+  return dispatch => {
+    dispatch(request({ username }));
+
+    userService.loginWithFirebase(user)
+      .then(
+          user => {
+            dispatch(success(user, type));
+          },
+          error => {
+            dispatch(failure(error.toString()));
+            dispatch(alertActions.error(error.toString()));
+          }
+      );
+  };
+
+  function request(user, loginType) { return { type: userActionTypes.LOGIN_REQUEST, user, loginType } }
+  function success(user, loginType) { return { type: userActionTypes.LOGIN_SUCCESS, user, loginType } }
   function failure(error) { return { type: userActionTypes.LOGIN_FAILURE, error } }
 }
 

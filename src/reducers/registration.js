@@ -11,11 +11,11 @@ const initialState = { registering: false, registered: false };
 export function registration(state = initialState, action) {
   switch (action.type) {
     case userActionTypes.REGISTER_REQUEST:
-      return { registering: true };
+      return { registering: true, registered: false };
     case userActionTypes.REGISTER_SUCCESS:
-      return {registered: true};
+      return {registering: false, registered: true};
     case userActionTypes.REGISTER_FAILURE:
-      return {};
+      return { registering: false, registered: false };
     default:
       return state
   }

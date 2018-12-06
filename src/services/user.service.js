@@ -10,6 +10,7 @@ const config = {
 
 export const userService = {
   login,
+  loginWithFirebase,
   logout,
   register,
   getAll,
@@ -47,6 +48,15 @@ function login(username, password) {
 
         return user;
       });
+}
+
+function loginWithFirebase(user) {
+  user.accessToken = 'fake-access-token';
+
+  return new Promise((resolve) => {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    resolve(user);
+  })
 }
 
 function logout() {

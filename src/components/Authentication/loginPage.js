@@ -86,8 +86,8 @@ class LoginPage extends Component {
         <h2>Login</h2>
         <form name="form" onSubmit={this.handleSubmit}>
           <div className={'form-group'}>
-            <button onClick={this.firebaseLogin} data-type="google">Sign in using Google</button>
-            <button onClick={this.firebaseLogin} data-type="github">Sign in using GitHub</button>
+            <button type={"button"} onClick={this.firebaseLogin} data-type="google">Sign in using Google</button>
+            <button type={"button"} onClick={this.firebaseLogin} data-type="github">Sign in using GitHub</button>
           </div>
           <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
             <label htmlFor="username">Username</label>

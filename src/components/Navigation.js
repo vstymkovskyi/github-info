@@ -5,8 +5,9 @@
  */
 
 import React, {Component} from 'react';
-import {Navbar, Nav, NavItem, NavLink} from 'reactstrap';
+import {Navbar, Nav, NavItem} from 'reactstrap';
 import { connect } from 'react-redux';
+import {Link} from "react-router-dom";
 
 const navigationLinks = () => {
   return [
@@ -45,7 +46,9 @@ function RenderLink(props) {
   const {item} = props;
   return (
       <NavItem>
-        <NavLink href={item.link}>{item.name}</NavLink>
+        <Link to={item.link} className={'nav-link'}>
+          {item.name}
+        </Link>
       </NavItem>
   )
 }

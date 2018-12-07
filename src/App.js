@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-// import { Provider } from 'react-redux';
 
 import logo from './logo.svg';
 import './App.css';
 
-import Navigation from './components/Navigation'
-
 import Routes from './services/routes'
-// import store from './store'
 import {connect} from 'react-redux'
 
 import { history } from './helpers/history';
@@ -35,8 +31,8 @@ class App extends Component {
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
-        <Navigation/>
-        <Routes/>
+
+        <Routes />
       </div>
     );
   }

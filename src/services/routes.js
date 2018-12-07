@@ -6,6 +6,8 @@
 
 import React  from 'react';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
+import Navigation from "../components/Navigation";
 import HomePge from '../components/HomePage'
 import SearchPage from '../components/Search/SearchPage'
 import PostsPage from '../components/Posts';
@@ -94,6 +96,7 @@ function RouteConfig() {
   return (
       <Router>
         <div>
+          <Navigation />
           {routes.map((route, i) => (
               <RouteWithSubRoutes key={i} {...route} />
           ))}

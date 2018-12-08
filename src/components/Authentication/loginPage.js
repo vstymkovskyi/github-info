@@ -52,20 +52,20 @@ class LoginPage extends Component {
     firebaseAuth.signInWithPopup(provider)
     .then((result) => {
       let user = {
-          username: result.user.email,
+        id: result.additionalUserInfo.profile.id,
+        name: result.additionalUserInfo.profile.name,
+        username: result.user.email,
       };
 
       if(loginType === 'google') {
-        user.id = result.additionalUserInfo.profile.id;
         user.firstName = result.additionalUserInfo.profile.given_name;
         user.lastName = result.additionalUserInfo.profile.family_name;
-        user.picture = result.additionalUserInfo.profile.picture;
+        user.avatar_url = result.additionalUserInfo.profile.picture;
       } else {
           const name = result.additionalUserInfo.profile.name.split(' ');
-          user.id = result.additionalUserInfo.profile.id;
           user.firstName = name[0];
           user.lastName = name[1];
-          user.picture = result.additionalUserInfo.profile.avatar_url;
+          user.avatar_url = result.additionalUserInfo.profile.avatar_url;
       }
       dispatch(userActions.loginWithFirebase(user.username, user, loginType));
     }).catch(reason => {

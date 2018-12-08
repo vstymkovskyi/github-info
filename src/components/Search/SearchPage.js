@@ -14,11 +14,11 @@ class SearchPage extends Component {
 
   render() {
     return (
-        <div>
-          <h1>Search user on github by name</h1>
-          <SearchForm />
-          <SearchList />
-        </div>
+      <div className="jumbotron">
+        <h1>Search user on github by name</h1>
+        <SearchForm />
+        <SearchList />
+      </div>
     );
   }
 }

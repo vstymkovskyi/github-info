@@ -16,6 +16,7 @@ import UserPage from '../components/User/userPage';
 import LoginPage from '../components/Authentication/loginPage';
 import Logout from '../components/Authentication/logout';
 import RegistrationPage from '../components/Authentication/registrationPage';
+import AdminPage from '../components/Admin/AdminPage';
 
 const routes = [
   {
@@ -49,6 +50,12 @@ const routes = [
     private: true,
     redirect: '/login',
     component: UserPage
+  },
+  {
+    path: "/admin",
+    private: true,
+    redirect: '/login',
+    component: AdminPage
   },
   {
     path: "/login",

@@ -30,6 +30,11 @@ const navigationLinks = () => {
       userLoggedIn: true
     },
     {
+      link: '/admin',
+      name: 'Admin',
+      userLoggedIn: true
+    },
+    {
       link: '/login',
       name: 'Sign in',
       userLoggedIn: false

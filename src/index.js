@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
-//import { createBrowserHistory } from 'history'
+import { createBrowserHistory } from 'history'
 import { configureStore } from './services/store'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,8 +15,8 @@ import {configureFakeBackend } from './helpers/fake-backend'
 configureFakeBackend();
 
 const initialState = {};
-//const history = createBrowserHistory();
-const store = configureStore(initialState);
+const history = createBrowserHistory();
+const store = configureStore(initialState, history);
 
 ReactDOM.render(
     <Provider store={store}>

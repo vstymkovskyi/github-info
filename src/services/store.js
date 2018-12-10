@@ -6,13 +6,13 @@ import rootReducer from '../reducers';
 
 const middleware = [thunk];
 
-export function configureStore(initialState, history) {
+export function configureStore(initialState) {
     return createStore(
       rootReducer,
       initialState,
       compose(
         applyMiddleware(
-          routerMiddleware(history),
+          routerMiddleware,
           ...middleware
         ),
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

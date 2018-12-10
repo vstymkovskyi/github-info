@@ -50,8 +50,9 @@ function login(username, password) {
       });
 }
 
-function loginWithFirebase(user) {
+function loginWithFirebase(user, loginType) {
   user.accessToken = 'fake-access-token';
+  user.loginType = loginType;
 
   return new Promise((resolve) => {
     localStorage.setItem('currentUser', JSON.stringify(user));

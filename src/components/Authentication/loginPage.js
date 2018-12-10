@@ -7,6 +7,7 @@
 import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
+import {Container, Row, Col} from "reactstrap";
 
 import { firebaseAuth, googleProvider, githubProvider } from '../../components/Firebase/firebase'
 import { userActions } from '../../actions/user.actions';
@@ -51,21 +52,27 @@ class LoginPage extends Component {
 
     firebaseAuth.signInWithPopup(provider)
     .then((result) => {
+
       let user = {
-        id: result.additionalUserInfo.profile.id,
-        name: result.additionalUserInfo.profile.name,
-        username: result.user.email,
+        id:       result.additionalUserInfo.profile.id,
+        name:     result.additionalUserInfo.profile.name,
+        username: result.user.email
       };
 
       if(loginType === 'google') {
-        user.firstName = result.additionalUserInfo.profile.given_name;
-        user.lastName = result.additionalUserInfo.profile.family_name;
+        user.firstName  = result.additionalUserInfo.profile.given_name;
+        user.lastName   = result.additionalUserInfo.profile.family_name;
         user.avatar_url = result.additionalUserInfo.profile.picture;
+        user.html_url   = result.additionalUserInfo.profile.link;
       } else {
-          const name = result.additionalUserInfo.profile.name.split(' ');
-          user.firstName = name[0];
-          user.lastName = name[1];
-          user.avatar_url = result.additionalUserInfo.profile.avatar_url;
+        const name      = result.additionalUserInfo.profile.name.split(' ');
+        user.firstName  = name[0];
+        user.lastName   = name[1];
+        user.created_at = result.additionalUserInfo.profile.created_at;
+        user.html_url   = result.additionalUserInfo.profile.html_url;
+        user.bio        = result.additionalUserInfo.profile.bio;
+        user.company    = result.additionalUserInfo.profile.company;
+        user.avatar_url = result.additionalUserInfo.profile.avatar_url;
       }
       dispatch(userActions.loginWithFirebase(user.username, user, loginType));
     }).catch(reason => {
@@ -78,40 +85,49 @@ class LoginPage extends Component {
     const { username, password, submitted } = this.state;
 
     if(loggedIn) {
-      return <Redirect to={{ pathname: '/user' }} />
+      return <Redirect to={{ pathname: '/' }} />
     }
 
     return (
-      <div className="col-md-6 col-md-offset-3">
-        <h2>Login</h2>
-        <form name="form" onSubmit={this.handleSubmit}>
-          <div className={'form-group'}>
-            <button type={"button"} onClick={this.firebaseLogin} data-type="google">Sign in using Google</button>
-            <button type={"button"} onClick={this.firebaseLogin} data-type="github">Sign in using GitHub</button>
-          </div>
-          <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
-            <label htmlFor="username">Username</label>
-            <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
-            {submitted && !username &&
-            <div className="help-block">Username is required</div>
-            }
-          </div>
-          <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-            <label htmlFor="password">Password</label>
-            <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-            {submitted && !password &&
-            <div className="help-block">Password is required</div>
-            }
-          </div>
-          <div className="form-group">
-            <button className="btn btn-primary">Login</button>
-            {loggingIn &&
-            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" alt={"Login"} />
-            }
-            <Link to="/register" className="btn btn-link">Register</Link>
-          </div>
-        </form>
-      </div>
+      <Container>
+        <Row>
+          <Col sm={12} md={"6 offset-md-3"}>
+            <h2>Login</h2>
+            <form name="form" onSubmit={this.handleSubmit}>
+              <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
+                <label htmlFor="username">Username</label>
+                <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
+                {submitted && !username &&
+                <div className="help-block">Username is required</div>
+                }
+              </div>
+              <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
+                <label htmlFor="password">Password</label>
+                <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
+                {submitted && !password &&
+                <div className="help-block">Password is required</div>
+                }
+              </div>
+              <div className="form-group">
+                <button className="btn btn-primary">Login</button>
+                {loggingIn &&
+                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" alt={"Login"} />
+                }
+                <Link to="/register" className="btn btn-link">Register</Link>
+              </div>
+              <div className={'form-group'}>
+                <div className={"text-center"}>or</div>
+              </div>
+              <div className={'form-group'}>
+                <button type={"button"} onClick={this.firebaseLogin} data-type="google"
+                        className={"btn btn-block btn-lg btn-google"}><i className="fa fa-google"></i> Sign in using Google</button>
+                <button type={"button"} onClick={this.firebaseLogin} data-type="github"
+                        className={"btn btn-block btn-lg btn-github"}><i className="fa fa-github"></i> Sign in using GitHub</button>
+              </div>
+            </form>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

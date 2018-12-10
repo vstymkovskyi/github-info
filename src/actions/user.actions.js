@@ -61,7 +61,7 @@ function loginWithFirebase(username, user, type) {
   return dispatch => {
     dispatch(request({ username }));
 
-    userService.loginWithFirebase(user)
+    userService.loginWithFirebase(user, type)
       .then(
           user => {
             dispatch(success(user, type));

@@ -16,10 +16,6 @@ const navigationLinks = () => {
       name: 'Home'
     },
     {
-      link: '/posts',
-      name: 'Posts'
-    },
-    {
       link: '/search',
       name: 'Search',
       userLoggedIn: true
@@ -77,7 +73,7 @@ class Navigation extends Component {
     });
 
     return (
-        <div>
+        <div className={"mb-3"}>
           <Navbar color={"light"} light expand="md">
             <Nav navbar>
               {navItems}

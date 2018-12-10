@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
-import store from './store'
+import { ConnectedRouter } from 'connected-react-router'
+import { createBrowserHistory } from 'history'
+import { configureStore } from './services/store'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -13,9 +15,15 @@ import {configureFakeBackend } from './helpers/fake-backend'
 
 configureFakeBackend();
 
+const initialState = {};
+const history = createBrowserHistory();
+const store = configureStore(initialState, history);
+
 ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
     </Provider>,
     document.getElementById('root')
 );

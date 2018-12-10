@@ -5,8 +5,12 @@
  */
 
 import { userActionTypes } from '../actions/user.actions';
+let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
 const initialState = { registering: false, registered: false };
+if(currentUser) {
+  initialState.registered = true;
+}
 
 export function registration(state = initialState, action) {
   switch (action.type) {

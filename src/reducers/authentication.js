@@ -9,7 +9,7 @@ import { userActionTypes } from '../actions/user.actions';
 let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 let initialState = {loggedIn: false};
 if(currentUser) {
-  initialState = {...initialState, currentUser, loggedIn: true}
+  initialState = {...initialState, currentUser, loggedIn: true, loginType: currentUser.loginType}
 }
 
 export function authentication(state = initialState, action) {

@@ -63,7 +63,7 @@ class RegistrationPage extends React.Component {
     }
 
     return (
-        <div className="col-md-6 col-md-offset-3">
+        <div className="col-md-6 offset-md-3">
           <h2>Register</h2>
           <form name="form" onSubmit={this.handleSubmit}>
             <div className={'form-group' + (submitted && !user.firstName ? ' has-error' : '')}>

@@ -22,6 +22,8 @@ export const userActionTypes = {
   GETALL_SUCCESS: 'USERS_GETALL_SUCCESS',
   GETALL_FAILURE: 'USERS_GETALL_FAILURE',
 
+  GET_PROFILE_AVATAR: 'GET_PROFILE_AVATAR',
+
   DELETE_REQUEST: 'USERS_DELETE_REQUEST',
   DELETE_SUCCESS: 'USERS_DELETE_SUCCESS',
   DELETE_FAILURE: 'USERS_DELETE_FAILURE'
@@ -33,7 +35,8 @@ export const userActions = {
   logout,
   register,
   getAllUsers,
-  deleteUser
+  deleteUser,
+  getProfileAvatar
 };
 
 function login(username, password) {
@@ -136,4 +139,17 @@ function deleteUser(id) {
   function request(id) { return { type: userActionTypes.DELETE_REQUEST, id } }
   function success(id) { return { type: userActionTypes.DELETE_SUCCESS, id } }
   function failure(id, error) { return { type: userActionTypes.DELETE_FAILURE, id, error } }
+}
+
+function getProfileAvatar(email) {
+  return dispatch => {
+    userService.getAvatar().then(
+      avatar => {
+        console.log('getProfileAvatar');
+        console.log(avatar);
+        dispatch({type: userActionTypes.GET_PROFILE_AVATAR, avatar});
+      }
+    )
+
+  }
 }

@@ -16,7 +16,8 @@ export const userService = {
   getAll,
   getById,
   update,
-  deleteUser
+  deleteUser,
+  getAvatar
 };
 
 function authHeader() {
@@ -84,13 +85,21 @@ function getById(id) {
 }
 
 function register(user) {
-  const requestOptions = {
+  let requestOptions = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(user)
+    headers: { 'Content-Type': 'application/json' }
   };
+  user.loginType = 'local';
+  user.created_at = new Date();
 
-  return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
+  return getAvatar().then(
+    avatar => {
+      user.avatar_url = avatar;
+      requestOptions.body = JSON.stringify(user);
+
+      return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse)
+    }
+  );
 }
 
 function update(user) {
@@ -128,4 +137,11 @@ function handleResponse(response) {
 
     return data;
   });
+}
+
+function getAvatar() {
+  return fetch('https://picsum.photos/200/300/?random')
+    .then(avatarResponse => {
+      return avatarResponse.url ? avatarResponse.url : null;
+    });
 }

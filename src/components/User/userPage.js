@@ -22,7 +22,8 @@ class UserPage extends Component {
     const { currentUser } = this.props;
     const loginTypeValues = {
       google: 'Google',
-      github: 'GitHub'
+      github: 'GitHub',
+      local: 'Local registration'
     };
     console.log(currentUser);
 
@@ -37,6 +38,7 @@ class UserPage extends Component {
                   <Col sm="12">
                     <h1>{currentUser.name}</h1>
                     <div className="p-note user-profile-id"><strong>ID:</strong> {currentUser.id}</div>
+                    <div className="p-note user-profile-id"><strong>Username:</strong> {(currentUser.username != null) ? currentUser.username : currentUser.name}</div>
                     <div className="p-note user-profile-type"><strong>Login type:</strong> {loginTypeValues[currentUser.loginType]}</div>
                     {currentUser.created_at != null &&
                       <div className="p-note user-profile-created">

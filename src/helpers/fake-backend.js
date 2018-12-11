@@ -34,6 +34,8 @@ export function configureFakeBackend() {
               username: user.username,
               firstName: user.firstName,
               lastName: user.lastName,
+              avatar_url: user.avatar_url,
+              loginType: user.loginType,
               accessToken: 'fake-access-token'
             };
 
@@ -83,6 +85,7 @@ export function configureFakeBackend() {
         if (url.endsWith('/users/register') && opts.method === 'POST') {
           // get new user object from post body
           let newUser = JSON.parse(opts.body);
+          console.log('newUser', newUser);
 
           // validation
           let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;

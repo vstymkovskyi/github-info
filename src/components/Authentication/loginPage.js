@@ -11,7 +11,7 @@ import {Container, Row, Col} from "reactstrap";
 
 import { firebaseAuth, googleProvider, githubProvider } from '../../components/Firebase/firebase'
 import { userActions } from '../../actions/user.actions';
-import { alertActions } from '../../actions/alert.actions';
+import { notification } from '../../actions/notification';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -76,7 +76,7 @@ class LoginPage extends Component {
       }
       dispatch(userActions.loginWithFirebase(user.username, user, loginType));
     }).catch(reason => {
-      dispatch(alertActions.error(reason.message));
+      dispatch(notification.error(reason.message));
     });
   }
 

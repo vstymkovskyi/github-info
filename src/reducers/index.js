@@ -6,7 +6,7 @@ import searchReducer from './searchreducer';
 import { authentication } from './authentication';
 import { registration } from './registration';
 import { users } from './user';
-import { alert } from './alert.reducer';
+import { notification } from './notification';
 
 export default (history) => combineReducers({
   router: connectRouter(history),
@@ -15,5 +15,5 @@ export default (history) => combineReducers({
   authentication,
   registration,
   users,
-  alert
+  notification
 })

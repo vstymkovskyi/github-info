@@ -5,7 +5,7 @@
  */
 
 import { userService } from '../services/user.service';
-import { alertActions } from './alert.actions';
+import { notification } from './notification';
 
 export const userActionTypes = {
   REGISTER_REQUEST: 'USERS_REGISTER_REQUEST',
@@ -50,7 +50,7 @@ function login(username, password) {
             },
             error => {
               dispatch(failure(error.toString()));
-              dispatch(alertActions.error(error.toString()));
+              dispatch(notification.error(error.toString()));
             }
         );
   };
@@ -71,7 +71,7 @@ function loginWithFirebase(username, user, type) {
           },
           error => {
             dispatch(failure(error.toString()));
-            dispatch(alertActions.error(error.toString()));
+            dispatch(notification.error(error.toString()));
           }
       );
   };
@@ -99,7 +99,7 @@ function register(user) {
             },
             error => {
               dispatch(failure(error.toString()));
-              dispatch(alertActions.error(error.toString()));
+              dispatch(notification.error(error.toString()));
             }
         );
   };

@@ -6,6 +6,7 @@
 
 import { userActionTypes } from '../actions/user.actions';
 let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+console.log(currentUser);
 
 const initialState = { registering: false, registered: false };
 if(currentUser) {
@@ -19,6 +20,10 @@ export function registration(state = initialState, action) {
     case userActionTypes.REGISTER_SUCCESS:
       return {registering: false, registered: true};
     case userActionTypes.REGISTER_FAILURE:
+      return { registering: false, registered: false };
+    case userActionTypes.LOGIN_SUCCESS:
+      return { registering: false, registered: true };
+    case userActionTypes.LOGOUT:
       return { registering: false, registered: false };
     default:
       return state

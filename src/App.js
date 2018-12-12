@@ -7,27 +7,27 @@ import Routes from './services/routes'
 import {connect} from 'react-redux'
 
 import { history } from './helpers/history';
-import { alertActions } from './actions/alert.actions';
+import { notification } from './actions/notification';
 
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    const { dispatch } = this.props;
-    history.listen((location, action) => {
-      // clear alert on location change
-      dispatch(alertActions.clear());
-    });
+    //const { dispatch } = this.props;
+    //history.listen((location, action) => {
+    //  // clear alert on location change
+    //  dispatch(notification.clear());
+    //});
   }
 
   render() {
-    const { alert } = this.props;
+    //const { notification } = this.props;
     return (
       <div className="App">
-        {alert.message &&
-          <div className={`alert ${alert.type}`}>{alert.message}</div>
-        }
+        {/*{notification.message &&*/}
+          {/*<div className={`notification ${notification.type}`}>{notification.message}</div>*/}
+        {/*}*/}
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
@@ -39,9 +39,9 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  const { alert } = state;
+  const { notification } = state;
   return {
-    alert
+    notification
   };
 }
 

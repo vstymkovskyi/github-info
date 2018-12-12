@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {userActions} from "../../actions/user.actions";
-import {alertActions} from "../../actions/alert.actions";
+import {notification} from "../../actions/notification";
 
 class AdminPage extends Component {
 
@@ -12,7 +12,7 @@ class AdminPage extends Component {
   handleDeleteUser(id) {
     return () => {
       if(id === this.props.currentUser.id) {
-        this.props.dispatch(alertActions.error('You can not delete your self :-)'));
+        this.props.dispatch(notification.error('You can not delete your self :-)'));
         return false;
       }
       return this.props.dispatch(userActions.deleteUser(id));
@@ -52,10 +52,10 @@ class AdminPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { users, authentication, alert } = state;
+  const { users, authentication, notification } = state;
   const { currentUser } = authentication;
   return {
-    alert,
+    notification,
     currentUser,
     users
   };

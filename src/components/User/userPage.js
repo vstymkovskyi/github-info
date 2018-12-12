@@ -7,8 +7,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-//import { userActions } from '../../actions/user.actions';
-//import { alertActions } from '../../actions/alert.actions';
 import { Container, Row, Col } from 'reactstrap';
 import Header from "../SearchUser/searchUserHeader";
 
@@ -25,7 +23,6 @@ class UserPage extends Component {
       github: 'GitHub',
       local: 'Local registration'
     };
-    console.log(currentUser);
 
     return (
       <Container>
@@ -70,10 +67,10 @@ class UserPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { authentication, alert } = state;
+  const { authentication, notification } = state;
   const { currentUser } = authentication;
   return {
-    alert,
+    notification,
     currentUser
   };
 }

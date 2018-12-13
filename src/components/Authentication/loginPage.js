@@ -11,7 +11,7 @@ import {Container, Row, Col} from "reactstrap";
 
 import { firebaseAuth, googleProvider, githubProvider } from '../../components/Firebase/firebase'
 import { userActions } from '../../actions/user.actions';
-import { notification } from '../../actions/notification';
+import { modalActions } from '../../actions/notification';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -76,8 +76,23 @@ class LoginPage extends Component {
       }
       dispatch(userActions.loginWithFirebase(user.username, user, loginType));
     }).catch(reason => {
-      dispatch(notification.error(reason.message));
+      dispatch(modalActions.openModal({
+        type: 'custom',
+        title: 'Error',
+        content: reason.message
+      }));
     });
+  }
+
+  componentWillUnmount() {
+    if(this.props.loggedIn) {
+      this.props.dispatch(modalActions.openModal({
+        type: 'custom',
+        content: 'You have successfully logged in.',
+        onClose: () => console.log("fire at closing event"),
+        onConfirm: () => console.log("fire at confirming event"),
+      }));
+    }
   }
 
   render() {

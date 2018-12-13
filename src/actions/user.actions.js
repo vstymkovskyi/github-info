@@ -5,7 +5,7 @@
  */
 
 import { userService } from '../services/user.service';
-import { notification } from './notification';
+import { modalActions as notification } from './notification';
 
 export const userActionTypes = {
   REGISTER_REQUEST: 'USERS_REGISTER_REQUEST',
@@ -50,7 +50,11 @@ function login(username, password) {
             },
             error => {
               dispatch(failure(error.toString()));
-              dispatch(notification.error(error.toString()));
+              dispatch(notification.openModal({
+                type: 'custom',
+                title: 'Error',
+                content: error.toString()
+              }));
             }
         );
   };
@@ -71,7 +75,11 @@ function loginWithFirebase(username, user, type) {
           },
           error => {
             dispatch(failure(error.toString()));
-            dispatch(notification.error(error.toString()));
+            dispatch(notification.openModal({
+              type: 'custom',
+              title: 'Error',
+              content: error.toString()
+            }));
           }
       );
   };
@@ -99,7 +107,11 @@ function register(user) {
             },
             error => {
               dispatch(failure(error.toString()));
-              dispatch(notification.error(error.toString()));
+              dispatch(notification.openModal({
+                type: 'custom',
+                title: 'Error',
+                content: error.toString()
+              }));
             }
         );
   };
@@ -116,7 +128,14 @@ function getAllUsers() {
     userService.getAll()
         .then(
             users => dispatch(success(users)),
-            error => dispatch(failure(error.toString()))
+            error => {
+              dispatch(failure(error.toString()));
+              dispatch(notification.openModal({
+                type: 'custom',
+                title: 'Error',
+                content: error.toString()
+              }));
+            }
         );
   };
 
@@ -132,7 +151,14 @@ function deleteUser(id) {
     userService.deleteUser(id)
         .then(
             user => dispatch(success(id)),
-            error => dispatch(failure(id, error.toString()))
+            error => {
+              dispatch(failure(id, error.toString()));
+              dispatch(notification.openModal({
+                type: 'custom',
+                title: 'Error',
+                content: error.toString()
+              }));
+            }
         );
   };
 
@@ -145,8 +171,6 @@ function getProfileAvatar(email) {
   return dispatch => {
     userService.getAvatar().then(
       avatar => {
-        console.log('getProfileAvatar');
-        console.log(avatar);
         dispatch({type: userActionTypes.GET_PROFILE_AVATAR, avatar});
       }
     )

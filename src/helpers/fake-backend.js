@@ -85,7 +85,6 @@ export function configureFakeBackend() {
         if (url.endsWith('/users/register') && opts.method === 'POST') {
           // get new user object from post body
           let newUser = JSON.parse(opts.body);
-          console.log('newUser', newUser);
 
           // validation
           let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;

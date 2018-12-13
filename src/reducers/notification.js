@@ -4,22 +4,26 @@
  *
  */
 
-import { notificationTypes } from '../actions/notification';
+import { modalActionTypes } from '../actions/notification';
 
-export function notification(state = {}, action) {
+
+const initialState = {
+  modals: []
+};
+
+
+export function notification(state = initialState, action) {
   switch (action.type) {
-    case notificationTypes.SUCCESS:
+    case modalActionTypes.OPEN_MODAL:
       return {
-        type: 'notification-success',
-        message: action.message
+        ...state,
+        modals: state.modals.concat(action.obj)
       };
-    case notificationTypes.ERROR:
+    case modalActionTypes.CLOSE_MODAL:
       return {
-        type: 'notification-danger',
-        message: action.message
+        ...state,
+        modals: state.modals.filter(item => item.id !== action.obj.id),
       };
-    case notificationTypes.CLEAR:
-      return {};
     default:
       return state
   }

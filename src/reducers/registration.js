@@ -6,7 +6,6 @@
 
 import { userActionTypes } from '../actions/user.actions';
 let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-console.log(currentUser);
 
 const initialState = { registering: false, registered: false };
 if(currentUser) {

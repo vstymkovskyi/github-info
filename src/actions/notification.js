@@ -4,32 +4,12 @@
  *
  */
 
-export const notificationTypes = {
-  SUCCESS: 'NOTIFICATION_SUCCESS',
-  MESSAGE: 'MESSAGE',
-  ERROR:   'NOTIFICATION_ERROR',
-  CLEAR:   'NOTIFICATION_CLEAR'
+export const modalActionTypes = {
+  OPEN_MODAL: 'OPEN_MODAL',
+  CLOSE_MODAL: 'CLOSE_MODAL',
 };
 
-export const notification = {
-  success,
-  message,
-  error,
-  clear
+export const modalActions = {
+  openModal: (obj) => ({ type: modalActionTypes.OPEN_MODAL, obj }),
+  closeModal: (obj) => ({ type: modalActionTypes.CLOSE_MODAL, obj })
 };
-
-function success(message) {
-  return { type: notificationTypes.SUCCESS, message };
-}
-
-function message(message) {
-  return { type: notificationTypes.SUCCESS, message };
-}
-
-function error(message) {
-  return { type: notificationTypes.ERROR, message };
-}
-
-function clear() {
-  return { type: notificationTypes.CLEAR };
-}

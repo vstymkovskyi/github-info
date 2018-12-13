@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {userActions} from "../../actions/user.actions";
-import {notification} from "../../actions/notification";
+import { modalActions } from '../../actions/notification';
 
 class AdminPage extends Component {
 
@@ -12,7 +12,11 @@ class AdminPage extends Component {
   handleDeleteUser(id) {
     return () => {
       if(id === this.props.currentUser.id) {
-        this.props.dispatch(notification.error('You can not delete your self :-)'));
+        this.props.dispatch(modalActions.openModal({
+          type: 'custom',
+          title: 'Error',
+          content: 'You can not delete your self :-)'
+        }));
         return false;
       }
       return this.props.dispatch(userActions.deleteUser(id));

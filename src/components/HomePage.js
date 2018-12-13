@@ -9,9 +9,6 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom'
 
-import Popup from './PopupWindow/Popup';
-import {notification} from "../actions/notification";
-
 class HomePage extends Component {
 
   pageContentAnonymous = () => {
@@ -36,22 +33,11 @@ class HomePage extends Component {
     );
   };
 
-  componentDidMount() {
-    //this.props.dispatch(notification.success('some message'));
-  }
-
   render() {
-    const {loggedIn, notificationMessage} = this.props;
+    const {loggedIn} = this.props;
 
-    return (
+     return (
       <React.Fragment>
-
-        {notificationMessage &&
-          <Popup show={true}>{notificationMessage}</Popup>
-        }
-
-        <Popup show={true}>some inner content</Popup>
-
         <Container>
           <Row className="justify-content-center">
             <Col col={12}>

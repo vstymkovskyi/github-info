@@ -7,7 +7,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
-import { getUserInfo } from '../../actions/postactions';
+import { searchActions } from '../../actions/search';
 
 import Header from './searchUserHeader'
 import Content from './searchUserContent'
@@ -20,13 +20,15 @@ class SearchUserPage extends Component {
   }
 
   render() {
+    const {userData} = this.props;
+
     return (
       <Container>
         <Row>
           {this.props.userData ? (
               <Col sm={12} lg={12}>
-                <Header />
-                <Content userData={this.props.userData} />
+                <Header userData={userData} />
+                <Content userData={userData} />
               </Col>
           ) : (
             <Col sm={12} className={"text-center"}> Loading ... </Col>
@@ -42,7 +44,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getUserInfo: (userName) => dispatch(getUserInfo(userName))
+  getUserInfo: (userName) => dispatch(searchActions.getUserInfo(userName))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchUserPage);

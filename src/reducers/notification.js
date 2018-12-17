@@ -4,7 +4,7 @@
  *
  */
 
-import { modalActionTypes } from '../actions/notification';
+import { modalActionTypes } from '../actions/modal';
 
 
 const initialState = {

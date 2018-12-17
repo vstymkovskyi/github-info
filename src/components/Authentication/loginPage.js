@@ -11,7 +11,7 @@ import {Container, Row, Col} from "reactstrap";
 
 import { firebaseAuth, googleProvider, githubProvider } from '../../components/Firebase/firebase'
 import { userActions } from '../../actions/user.actions';
-import { modalActions } from '../../actions/notification';
+import { modalActions } from '../../actions/modal';
 
 class LoginPage extends Component {
   constructor(props) {

@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 
 class SearchUserHeader extends Component {
 
   headerWithAvatar = (userData) => {
+    let displayName;
+    if (userData.firstName && userData.lastName) {
+      displayName = userData.firstName+' '+userData.lastName;
+    } else {
+      displayName = userData.name;
+    }
     return (
       <React.Fragment>
         <div className="card hovercard">
@@ -16,8 +21,7 @@ class SearchUserHeader extends Component {
             <img alt="" src={userData.avatar_url} />
           </div>
           <div className="card-info">
-            <span className="card-title">
-              {userData.firstName} {userData.lastName}</span>
+            { displayName && <span className="card-title">{displayName}</span> }
           </div>
         </div>
       </React.Fragment>
@@ -32,18 +36,11 @@ class SearchUserHeader extends Component {
       <React.Fragment>
         {userData.avatar_url && this.headerWithAvatar(userData)}
         {!userData.avatar_url && userName != null &&
-          <div className=""><span className="">{userName}</span></div>
+          <div><span className="">{userName}</span></div>
         }
       </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
-  const userData = (state.searchResults.userData) ? state.searchResults.userData : state.authentication.currentUser;
-  return {
-    userData: userData
-  }
-};
-
-export default connect(mapStateToProps)(SearchUserHeader);
+export default SearchUserHeader;

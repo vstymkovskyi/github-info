@@ -29,7 +29,7 @@ class UserPage extends Component {
         <Row>
           {currentUser ? (
             <Col sm={12} lg={12}>
-              <Header />
+              <Header userData={currentUser} />
               <Container>
                 <Row>
                   <Col sm="12">

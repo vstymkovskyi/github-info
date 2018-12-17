@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {userActions} from "../../actions/user.actions";
-import { modalActions } from '../../actions/notification';
+import { modalActions } from '../../actions/modal';
 
 class AdminPage extends Component {
 

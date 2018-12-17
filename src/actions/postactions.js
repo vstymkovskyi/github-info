@@ -1,4 +1,4 @@
-import {FETCH_POSTS, NEW_POSTS, GET_USERS, GET_USER_INFO} from "./types";
+import { FETCH_POSTS, NEW_POSTS } from "./types";
 
 export function fetchPosts() {
   return function (dispatch) {
@@ -22,24 +22,6 @@ export const createPost = (postData) => dispatch => {
       .then(res => res.json())
       .then(data => dispatch({
         type: NEW_POSTS,
-        payload: data
-      }));
-};
-
-export const getUsers = (userName) => dispatch => {
-  fetch('https://api.github.com/search/users?per_page=12&q='+userName)
-      .then(res => res.json())
-      .then(data => dispatch({
-        type: GET_USERS,
-        payload: data
-      }));
-};
-
-export const getUserInfo = (userName) => dispatch => {
-  fetch('https://api.github.com/users/'+userName)
-      .then(res => res.json())
-      .then(data => dispatch({
-        type: GET_USER_INFO,
         payload: data
       }));
 };

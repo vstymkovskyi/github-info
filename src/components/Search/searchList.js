@@ -23,9 +23,14 @@ class SearchList extends Component {
 
     return (
       <Container fluid>
-        <Row>
-          { userItems }
-        </Row>
+        {(this.props.resultsTotalCount || this.props.resultsTotalCount === 0) &&
+          <Row>Search returned {this.props.resultsTotalCount} results. </Row>
+        }
+        {userItems &&
+          <Row>
+            { userItems }
+          </Row>
+        }
       </Container>
     );
   }
@@ -37,6 +42,7 @@ SearchList.propTypes = {
 
 const mapStateToProps = state => ({
   searchResults: state.searchResults.users.items,
+  resultsTotalCount: state.searchResults.users.total_count,
 });
 
-export default connect(mapStateToProps, {})(SearchList);
+export default connect(mapStateToProps)(SearchList);

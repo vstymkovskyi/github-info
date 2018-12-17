@@ -8,7 +8,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
-import {modalActions} from '../../actions/notification'
+import {modalActions} from '../../actions/modal'
 import Modal from './Modal'
 
 class Modals extends Component {

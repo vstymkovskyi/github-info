@@ -4,6 +4,8 @@
  *
  */
 
+import {searchActionTypes} from '../actions/search';
+
 const initialState = {
   users: {
     items: []
@@ -12,16 +14,18 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case 'GET_USERS':
+    case searchActionTypes.GET_USERS:
       return {
         ...state,
         users: action.payload
       };
-    case 'GET_USER_INFO':
+    case searchActionTypes.GET_USER_INFO:
       return {
         ...state,
         userData: action.payload
       };
+    case searchActionTypes.CLEAR_RESULTS:
+      return initialState;
     default:
       return state;
   }

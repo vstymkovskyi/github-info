@@ -5,7 +5,7 @@
  */
 
 import { userService } from '../services/user.service';
-import { modalActions as notification } from './notification';
+import { modalActions as notification } from './modal';
 
 export const userActionTypes = {
   REGISTER_REQUEST: 'USERS_REGISTER_REQUEST',

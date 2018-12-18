@@ -74,11 +74,11 @@ const routes = [
 ];
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={props => (
-        localStorage.getItem('currentUser')
-            ? <Component {...props} />
-            : <Redirect to={{ pathname: rest.redirect, state: { from: props.location } }} />
-    )} />
+  <Route {...rest} render={props => (
+    localStorage.getItem('currentUser')
+      ? <Component {...props} />
+      : <Redirect to={{ pathname: rest.redirect, state: { from: props.location } }} />
+  )} />
 );
 
 // wrap <Route> and use this everywhere instead, then when
@@ -86,29 +86,29 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 function RouteWithSubRoutes(route) {
   if(route.private) {
     return (
-        <PrivateRoute
-            {...route}
-        />
+      <PrivateRoute
+        {...route}
+      />
     )
   } else {
     return (
-        <Route
-            {...route}
-        />
+      <Route
+        {...route}
+      />
     );
   }
 }
 
 function RouteConfig() {
   return (
-      <Router>
-        <div>
-          <Navigation />
-          {routes.map((route, i) => (
-              <RouteWithSubRoutes key={i} {...route} />
-          ))}
-        </div>
-      </Router>
+    <Router>
+      <div>
+        <Navigation />
+        {routes.map((route, i) => (
+          <RouteWithSubRoutes key={i} {...route} />
+        ))}
+      </div>
+    </Router>
   );
 }
 

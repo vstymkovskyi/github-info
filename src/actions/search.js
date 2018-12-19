@@ -21,8 +21,14 @@ export const searchActions = {
 };
 
 function findUser(searchParams) {
+  if(searchParams.sortBy === 'best_match') {
+    searchParams.sortBy = '';
+  }
   let url = 'https://api.github.com/search/users?per_page=12&q='+searchParams.userName;
-  if(searchParams.searchBy.length) url += '+in:'+searchParams.searchBy.join(',');
+  if(searchParams.searchBy.length) {
+    url += '+in:'+searchParams.searchBy.join(',');
+  }
+  url += '&sort='+searchParams.sortBy+'&order='+searchParams.orderBy;
 
   return dispatch => {
     fetch(url)

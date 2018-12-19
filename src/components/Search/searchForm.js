@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Button, Form, FormGroup, Label, Input, Col, CustomInput } from 'reactstrap';
+import {Button, Form, FormGroup, Label, Input, Col, CustomInput, Dropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap';
 import { searchActions } from '../../actions/search';
 import { modalActions } from "../../actions/modal";
 
@@ -9,12 +9,45 @@ class SearchForm extends Component {
     super(props);
 
     this.state = {
-      searchField: '',
-      searchBy: ['fullname'],
+      searchField:       '',
+      searchBy:          ['fullname'],
+      sortBy:            'best_match',
+      orderBy:           'desc',
       searchFormBlocked: false,
+      orderListOpen:     false,
+      sortListOpen:      false
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.checkSearchBy = this.checkSearchBy.bind(this);
+
+    this.handleSubmit     = this.handleSubmit.bind(this);
+    this.handleSelect     = this.handleSelect.bind(this);
+    this.checkSearchBy    = this.checkSearchBy.bind(this);
+    this.toggleOrderList  = this.toggleOrderList.bind(this);
+    this.toggleSortList   = this.toggleSortList.bind(this);
+    this.outputSelectList = this.outputSelectList.bind(this);
+
+    this.sortOptions = {
+      'best_match':   'Best match',
+      'followers':    'Followers',
+      'repositories': 'Repositories',
+      'joined':       'Joined'
+    };
+
+    this.orderOptions = {
+      'asc':  'ASC',
+      'desc': 'DESC'
+    };
+  }
+
+  toggleSortList() {
+    this.setState(prevState => ({
+      sortListOpen: !prevState.sortListOpen
+    }));
+  }
+
+  toggleOrderList() {
+    this.setState(prevState => ({
+      orderListOpen: !prevState.orderListOpen
+    }));
   }
 
   checkSearchBy(selected) {
@@ -30,15 +63,27 @@ class SearchForm extends Component {
   }
 
   handleChange (event) {
-    this.setState({[event.target.name]: event.target.value});
+    let value = event.target.value.trim();
+
+    this.setState({[event.target.name]: value});
+  }
+
+  handleSelect (event) {
+    if(this.state.searchField) {
+      this.setState({[event.target.name]: event.target.value}, this.handleSubmit);
+    } else {
+      this.setState({[event.target.name]: event.target.value});
+    }
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
+    if(e) e.preventDefault();
     if(this.state.searchField) {
       this.props.findUserByName({
         userName: this.state.searchField,
         searchBy: this.state.searchBy,
+        sortBy:   this.state.sortBy,
+        orderBy:  this.state.orderBy
       });
     } else {
       this.props.openModal({
@@ -49,13 +94,37 @@ class SearchForm extends Component {
     }
   };
 
+
+  outputSelectList (type, isOpen, options) {
+    const self = this;
+    const toggleFunc = (type === 'orderBy') ? this.toggleOrderList : this.toggleSortList;
+
+    return (
+      <Dropdown isOpen={isOpen} toggle={toggleFunc}>
+        <DropdownToggle caret>{options[self.state[type]]}</DropdownToggle>
+        <DropdownMenu>
+          {Object.keys(options).map((key, i) => {
+            return (
+              <DropdownItem key={i}
+                            onClick={self.handleSelect}
+                            name="sortBy"
+                            value={key}
+                            disabled={(self.state[type] === key)}
+              >
+                {options[key]}
+              </DropdownItem>
+            );
+          })}
+        </DropdownMenu>
+      </Dropdown>
+    )
+  }
+
   render() {
+    const self = this;
+
     return (
       <React.Fragment>
-        <Form>
-
-        </Form>
-
         <Form onSubmit={this.handleSubmit}>
           <FormGroup row>
             <Col md={12}>
@@ -80,6 +149,45 @@ class SearchForm extends Component {
                        name={"searchField"}
                        onChange={event => this.handleChange(event)}
                        placeholder={"Enter github user name"} />
+            </Col>
+            <Col md={2} className={""}>
+              <label>Sort by</label>
+              <Dropdown isOpen={this.state.sortListOpen} toggle={this.toggleSortList}>
+                <DropdownToggle caret>{self.sortOptions[self.state.sortBy]}</DropdownToggle>
+                <DropdownMenu>
+                  {Object.keys(this.sortOptions).map((key, i) => {
+                    return (
+                      <DropdownItem key={i}
+                                    onClick={self.handleSelect}
+                                    name="sortBy"
+                                    value={key}
+                                    disabled={(self.state.sortBy === key)}
+                      >
+                        {self.sortOptions[key]}
+                      </DropdownItem>
+                    );
+                  })}
+                </DropdownMenu>
+              </Dropdown>
+            </Col>
+            <Col md={2}>
+              <label>Order</label>
+              <Dropdown isOpen={this.state.orderListOpen} toggle={this.toggleOrderList}>
+                <DropdownToggle caret>{self.orderOptions[self.state.orderBy]}</DropdownToggle>
+                <DropdownMenu>
+                  {Object.keys(this.orderOptions).map((key, i) => {
+                    return (
+                      <DropdownItem key={i}
+                                    onClick={self.handleSelect}
+                                    name="orderBy"
+                                    value={key}
+                                    disabled={(self.state.orderBy === key)}>
+                        {self.orderOptions[key]}
+                      </DropdownItem>
+                    );
+                  })}
+                </DropdownMenu>
+              </Dropdown>
             </Col>
           </FormGroup>
           <Button disabled={this.state.searchFormBlocked}>Search</Button>

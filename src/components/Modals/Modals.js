@@ -7,7 +7,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classnames from 'classnames';
 import {modalActions} from '../../actions/modal'
 import Modal from './Modal'
 
@@ -16,15 +15,13 @@ class Modals extends Component {
     const modals = this.props.modals.map((item,i) => <Modal item={item} key={i} zIndex={i} onClose={(item) => this.props.closeModal(item)}/>);
 
     return (
-        <div className={classnames('modal-overlay', { active: modals.length })}>
-          {modals}
-        </div>
+      <React.Fragment> {modals}</React.Fragment>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  ...state.notification
+  ...state.modals
 });
 
 const mapDispatchToProps = (dispatch) => (

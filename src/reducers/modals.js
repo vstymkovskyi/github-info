@@ -12,7 +12,7 @@ const initialState = {
 };
 
 
-export function notification(state = initialState, action) {
+export function modals(state = initialState, action) {
   switch (action.type) {
     case modalActionTypes.OPEN_MODAL:
       return {

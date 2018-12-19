@@ -6,7 +6,7 @@ import search from './search';
 import { authentication } from './authentication';
 import { registration } from './registration';
 import { users } from './user';
-import { notification } from './notification';
+import { modals } from './modals';
 
 export default combineReducers({
   posts: postReducer,
@@ -14,5 +14,5 @@ export default combineReducers({
   authentication,
   registration,
   users,
-  notification
+  modals
 })

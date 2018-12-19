@@ -13,7 +13,7 @@ class AdminPage extends Component {
     return () => {
       if(id === this.props.currentUser.id) {
         this.props.dispatch(modalActions.openModal({
-          type: 'custom',
+          type: 'error',
           title: 'Error',
           content: 'You can not delete your self :-)'
         }));
@@ -56,10 +56,9 @@ class AdminPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { users, authentication, notification } = state;
+  const { users, authentication } = state;
   const { currentUser } = authentication;
   return {
-    notification,
     currentUser,
     users
   };

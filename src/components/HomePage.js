@@ -56,8 +56,7 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.authentication.loggedIn,
-  notificationMessage: state.notification.message
+  loggedIn: state.authentication.loggedIn
 });
 
 export default connect(mapStateToProps)(HomePage);

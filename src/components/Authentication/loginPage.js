@@ -77,7 +77,7 @@ class LoginPage extends Component {
       dispatch(userActions.loginWithFirebase(user.username, user, loginType));
     }).catch(reason => {
       dispatch(modalActions.openModal({
-        type: 'custom',
+        type: 'error',
         title: 'Error',
         content: reason.message
       }));
@@ -87,7 +87,8 @@ class LoginPage extends Component {
   componentWillUnmount() {
     if(this.props.loggedIn) {
       this.props.dispatch(modalActions.openModal({
-        type: 'custom',
+        type: 'notification',
+        title: 'Info',
         content: 'You have successfully logged in.',
         onClose: () => console.log("fire at closing event"),
         onConfirm: () => console.log("fire at confirming event"),

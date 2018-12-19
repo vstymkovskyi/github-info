@@ -4,7 +4,6 @@ import logo from './logo.svg';
 import './App.css';
 
 import Routes from './services/routes'
-import {connect} from 'react-redux'
 import Modals from "./components/Modals/Modals";
 
 class App extends Component {
@@ -23,11 +22,4 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { notification } = state;
-  return {
-    notification
-  };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

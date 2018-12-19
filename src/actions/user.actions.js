@@ -51,7 +51,7 @@ function login(username, password) {
             error => {
               dispatch(failure(error.toString()));
               dispatch(notification.openModal({
-                type: 'custom',
+                type: 'error',
                 title: 'Error',
                 content: error.toString()
               }));
@@ -76,7 +76,7 @@ function loginWithFirebase(username, user, type) {
           error => {
             dispatch(failure(error.toString()));
             dispatch(notification.openModal({
-              type: 'custom',
+              type: 'error',
               title: 'Error',
               content: error.toString()
             }));
@@ -108,7 +108,7 @@ function register(user) {
             error => {
               dispatch(failure(error.toString()));
               dispatch(notification.openModal({
-                type: 'custom',
+                type: 'error',
                 title: 'Error',
                 content: error.toString()
               }));
@@ -131,7 +131,7 @@ function getAllUsers() {
             error => {
               dispatch(failure(error.toString()));
               dispatch(notification.openModal({
-                type: 'custom',
+                type: 'error',
                 title: 'Error',
                 content: error.toString()
               }));
@@ -154,7 +154,7 @@ function deleteUser(id) {
             error => {
               dispatch(failure(id, error.toString()));
               dispatch(notification.openModal({
-                type: 'custom',
+                type: 'error',
                 title: 'Error',
                 content: error.toString()
               }));

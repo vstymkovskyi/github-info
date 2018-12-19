@@ -67,10 +67,9 @@ class UserPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { authentication, notification } = state;
+  const { authentication } = state;
   const { currentUser } = authentication;
   return {
-    notification,
     currentUser
   };
 }
